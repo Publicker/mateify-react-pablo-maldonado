@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/mateify-react-pablo-maldonado/static/css/main.5f361e03.chunk.css",
+    "main.js": "/mateify-react-pablo-maldonado/static/js/main.c908d307.chunk.js",
+    "main.js.map": "/mateify-react-pablo-maldonado/static/js/main.c908d307.chunk.js.map",
+    "runtime-main.js": "/mateify-react-pablo-maldonado/static/js/runtime-main.e85df388.js",
+    "runtime-main.js.map": "/mateify-react-pablo-maldonado/static/js/runtime-main.e85df388.js.map",
+    "static/js/2.e3830ec7.chunk.js": "/mateify-react-pablo-maldonado/static/js/2.e3830ec7.chunk.js",
+    "static/js/2.e3830ec7.chunk.js.map": "/mateify-react-pablo-maldonado/static/js/2.e3830ec7.chunk.js.map",
+    "index.html": "/mateify-react-pablo-maldonado/index.html",
+    "precache-manifest.8f3d3c041a03e3c21ff7c003deff2db9.js": "/mateify-react-pablo-maldonado/precache-manifest.8f3d3c041a03e3c21ff7c003deff2db9.js",
+    "service-worker.js": "/mateify-react-pablo-maldonado/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/mateify-react-pablo-maldonado/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.e3830ec7.chunk.js.LICENSE.txt": "/mateify-react-pablo-maldonado/static/js/2.e3830ec7.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e85df388.js",
+    "static/js/2.e3830ec7.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.c908d307.chunk.js"
+  ]
+}
