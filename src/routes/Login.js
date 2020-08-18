@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { useLocalStorage } from "../database/useLocalStorage";
+import userData from "../database/userData.json";
 import {
   Container,
   Box,
@@ -8,7 +11,11 @@ import {
   TextField,
   Button,
   Divider,
+  Snackbar,
 } from "@material-ui/core";
+
+import Alert from "@material-ui/lab/Alert";
+
 import { Lock } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     display: "flex",
     width: "100%",
+    // [theme.breakpoints.up("sm")]: {
+    //   padding: theme.spacing(3),
+    // },
   },
   box: {
     display: "flex",
@@ -50,10 +60,52 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const [loggedUser, setLoggedUser] = useLocalStorage();
+
+  const [userMail, setUserMail] = useState("test@email.com");
+  const [userPass, setUserPass] = useState("Passw0rd");
+
+  const [errorLogin, setErrorLogin] = useState(false);
+
+  useEffect(() => {
+    if (loggedUser) {
+      history.push("/playlist-creator");
+    }
+  }, [loggedUser, history]);
+
+  const handleLogin = () => {
+    const userToSignIn = userData.find(
+      (user) => user.email === userMail && user.password === userPass
+    );
+
+    if (userToSignIn) {
+      setLoggedUser(userToSignIn);
+      history.push("/playlist-creator");
+    } else {
+      setErrorLogin(true);
+    }
+  };
+
+  const handleInputMail = (e) => {
+    setUserMail(e.target.value);
+  };
+
+  const handleInputPassword = (e) => {
+    setUserPass(e.target.value);
+  };
+
+  const handleCloseErrorLogin = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setErrorLogin(false);
+  };
 
   return (
     <Container className={classes.app} maxWidth="md">
-      <Box width="100%" className={classes.box} p={10}>
+      <Box width="100%" className={classes.box} p={{ xs: 10, sm: 10 }}>
         <Lock className={classes.lock} />
         <Typography variant="h5" gutterBottom>
           Ingresar
@@ -65,6 +117,8 @@ const Login = () => {
           label="Correo electrónico"
           type="email"
           variant="outlined"
+          value={userMail}
+          onChange={handleInputMail}
         />
         <TextField
           className={classes.textField}
@@ -73,12 +127,15 @@ const Login = () => {
           type="password"
           autoComplete="current-password"
           variant="outlined"
+          value={userPass}
+          onChange={handleInputPassword}
         />
         <Button
           className={classes.buttonLogin}
           variant="contained"
           fullWidth
           color="secondary"
+          onClick={handleLogin}
         >
           Comenzar a crear playlists
         </Button>
@@ -104,6 +161,16 @@ const Login = () => {
           </Button>
         </Box>
       </Box>
+
+      <Snackbar
+        open={errorLogin}
+        autoHideDuration={6000}
+        onClose={handleCloseErrorLogin}
+      >
+        <Alert onClose={handleCloseErrorLogin} severity="error">
+          Usuario y/o contraseña incorrectos
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };

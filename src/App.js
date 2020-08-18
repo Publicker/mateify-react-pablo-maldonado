@@ -8,16 +8,13 @@ import {
 } from "@material-ui/core/styles";
 import { teal } from "@material-ui/core/colors";
 import { CustomAppBar } from "./components/CustomAppBar";
-import { Login, PlaylistCreator } from "./routes";
+import { Login, PlaylistCreator, PrivateRoute } from "./routes";
 
 const useStyles = makeStyles((theme) => {
   return {
     root: {
       backgroundColor: "#E5E5E5",
       height: "100%",
-    },
-    aaa: {
-      height: "200px",
     },
     customApp: {
       height: `calc(100% - ${theme.mixins.toolbar.minHeight}px)`,
@@ -57,9 +54,9 @@ function App() {
           <CustomAppBar />
           <div className={classes.customApp}>
             <Switch>
-              <Route path="/playlist-creator">
+              <PrivateRoute path="/playlist-creator">
                 <PlaylistCreator />
-              </Route>
+              </PrivateRoute>
               <Route path="/">
                 <Login />
               </Route>
