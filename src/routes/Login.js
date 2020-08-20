@@ -58,11 +58,11 @@ const useStyles = makeStyles((theme) => ({
   // },
 }));
 
-const Login = () => {
+const Login = ({ whenUserLogin }) => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [loggedUser, setLoggedUser] = useLocalStorage();
+  const [loggedUser] = useLocalStorage();
 
   const [userMail, setUserMail] = useState("test@email.com");
   const [userPass, setUserPass] = useState("Passw0rd");
@@ -81,7 +81,7 @@ const Login = () => {
     );
 
     if (userToSignIn) {
-      setLoggedUser(userToSignIn);
+      whenUserLogin(userToSignIn);
       history.push("/playlist-creator");
     } else {
       setErrorLogin(true);

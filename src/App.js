@@ -9,6 +9,7 @@ import {
 import { teal } from "@material-ui/core/colors";
 import { CustomAppBar } from "./components/CustomAppBar";
 import { Login, PlaylistCreator, PrivateRoute } from "./routes";
+import { useLocalStorage } from "./database/useLocalStorage";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -46,19 +47,31 @@ const theme = createMuiTheme({
 
 function App() {
   const classes = useStyles();
+  const [loggedUser, setLoggedUser] = useLocalStorage();
+
+  const whenUserLogin = (userLogged) => {
+    setLoggedUser(userLogged);
+  };
+
+  const whenUserLogout = () => {
+    setLoggedUser("");
+  };
 
   return (
     <MuiThemeProvider theme={theme}>
       <Router>
         <div className={classes.root}>
-          <CustomAppBar />
+          <CustomAppBar
+            loggedUser={loggedUser}
+            whenUserLogout={whenUserLogout}
+          />
           <div className={classes.customApp}>
             <Switch>
               <PrivateRoute path="/playlist-creator">
                 <PlaylistCreator />
               </PrivateRoute>
               <Route path="/">
-                <Login />
+                <Login whenUserLogin={whenUserLogin} />
               </Route>
             </Switch>
           </div>

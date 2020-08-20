@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Avatar,
+} from "@material-ui/core";
+
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
@@ -21,9 +26,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomAppBar = () => {
+const CustomAppBar = ({ loggedUser, whenUserLogout }) => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const history = useHistory();
+
   const open = Boolean(anchorEl);
 
   const handleMenu = (event) => {
@@ -31,6 +38,12 @@ const CustomAppBar = () => {
   };
 
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const logout = () => {
+    whenUserLogout();
+    history.push("");
     setAnchorEl(null);
   };
 
@@ -50,7 +63,14 @@ const CustomAppBar = () => {
               onClick={handleMenu}
               color="inherit"
             >
-              <AccountCircle />
+              {!loggedUser ? (
+                <AccountCircle />
+              ) : (
+                <Avatar
+                  alt={`User - ${loggedUser.email}`}
+                  src={loggedUser.profilePictureUrl}
+                />
+              )}
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -67,8 +87,7 @@ const CustomAppBar = () => {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={logout}>Cerrar sesión</MenuItem>
             </Menu>
           </div>
         </Toolbar>

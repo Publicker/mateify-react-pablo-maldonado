@@ -1,8 +1,15 @@
 import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Container, Box, Typography, TextField } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import {
+  Container,
+  Box,
+  Typography,
+  TextField,
+  InputAdornment,
+} from "@material-ui/core";
+import { Search } from "@material-ui/icons";
+
 import { useLocalStorage } from "../database/useLocalStorage";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,38 +42,28 @@ const useStyles = makeStyles((theme) => ({
 
 const PlaylistCreator = () => {
   const classes = useStyles();
-  const history = useHistory();
-  const [loggedUser, setLoggedUser] = useLocalStorage();
-
-  const logout = () => {
-    setLoggedUser("");
-    history.push("");
-  };
+  const [loggedUser] = useLocalStorage();
 
   return (
     <Container className={classes.app} maxWidth="md">
+      <TextField
+        className={classes.textField}
+        id="input"
+        label="Buscar"
+        type="email"
+        variant="outlined"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Search />
+            </InputAdornment>
+          ),
+        }}
+      />
       <Box width="100%" className={classes.box} p={{ xs: 10, sm: 10 }}>
         <Typography variant="h5" gutterBottom>
           Soy {loggedUser.email}
         </Typography>
-
-        <TextField
-          className={classes.textField}
-          id="email"
-          label="Correo electrónico"
-          type="email"
-          variant="outlined"
-          onFocus={logout}
-        />
-        <TextField
-          className={classes.textField}
-          id="password"
-          label="Contraseña"
-          type="password"
-          autoComplete="current-password"
-          variant="outlined"
-        />
-
         <Box mt={2} mb={1}>
           <Typography
             className={classes.textDontHaveAccount}
