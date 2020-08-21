@@ -44,8 +44,8 @@ const useStyles = makeStyles((theme) => ({
   w100: {
     width: "100%",
   },
-  textDontHaveAccount: {
-    color: "#C4C4C4",
+  disabledColor: {
+    color: theme.palette.action.disabled,
   },
   lock: {
     color: "#FFF",
@@ -146,7 +146,7 @@ const Login = ({ whenUserLogin }) => {
         <Divider className={classes.w100} />
         <Box mt={2} mb={1}>
           <Typography
-            className={classes.textDontHaveAccount}
+            className={classes.disabledColor}
             variant="button"
             display="block"
             gutterBottom
