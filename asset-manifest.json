@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/mateify-react-pablo-maldonado/static/css/main.12ac6add.chunk.css",
-    "main.js": "/mateify-react-pablo-maldonado/static/js/main.a4c25c05.chunk.js",
-    "main.js.map": "/mateify-react-pablo-maldonado/static/js/main.a4c25c05.chunk.js.map",
+    "main.css": "/mateify-react-pablo-maldonado/static/css/main.200071f1.chunk.css",
+    "main.js": "/mateify-react-pablo-maldonado/static/js/main.1f20750b.chunk.js",
+    "main.js.map": "/mateify-react-pablo-maldonado/static/js/main.1f20750b.chunk.js.map",
     "runtime-main.js": "/mateify-react-pablo-maldonado/static/js/runtime-main.e85df388.js",
     "runtime-main.js.map": "/mateify-react-pablo-maldonado/static/js/runtime-main.e85df388.js.map",
-    "static/js/2.c947a4a0.chunk.js": "/mateify-react-pablo-maldonado/static/js/2.c947a4a0.chunk.js",
-    "static/js/2.c947a4a0.chunk.js.map": "/mateify-react-pablo-maldonado/static/js/2.c947a4a0.chunk.js.map",
+    "static/js/2.e510edd3.chunk.js": "/mateify-react-pablo-maldonado/static/js/2.e510edd3.chunk.js",
+    "static/js/2.e510edd3.chunk.js.map": "/mateify-react-pablo-maldonado/static/js/2.e510edd3.chunk.js.map",
     "index.html": "/mateify-react-pablo-maldonado/index.html",
-    "precache-manifest.a3833e4f9855eaa18533e695b96cb1fc.js": "/mateify-react-pablo-maldonado/precache-manifest.a3833e4f9855eaa18533e695b96cb1fc.js",
+    "precache-manifest.44697b15f6db30a81a5d196d1a67ca1c.js": "/mateify-react-pablo-maldonado/precache-manifest.44697b15f6db30a81a5d196d1a67ca1c.js",
     "service-worker.js": "/mateify-react-pablo-maldonado/service-worker.js",
-    "static/css/main.12ac6add.chunk.css.map": "/mateify-react-pablo-maldonado/static/css/main.12ac6add.chunk.css.map",
-    "static/js/2.c947a4a0.chunk.js.LICENSE.txt": "/mateify-react-pablo-maldonado/static/js/2.c947a4a0.chunk.js.LICENSE.txt"
+    "static/css/main.200071f1.chunk.css.map": "/mateify-react-pablo-maldonado/static/css/main.200071f1.chunk.css.map",
+    "static/js/2.e510edd3.chunk.js.LICENSE.txt": "/mateify-react-pablo-maldonado/static/js/2.e510edd3.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e85df388.js",
-    "static/js/2.c947a4a0.chunk.js",
-    "static/css/main.12ac6add.chunk.css",
-    "static/js/main.a4c25c05.chunk.js"
+    "static/js/2.e510edd3.chunk.js",
+    "static/css/main.200071f1.chunk.css",
+    "static/js/main.1f20750b.chunk.js"
   ]
 }
