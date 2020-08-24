@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/mateify-react-pablo-maldonado/precache-manifest.44697b15f6db30a81a5d196d1a67ca1c.js"
+  "/mateify-react-pablo-maldonado/precache-manifest.5bb651ca40472b1b818aa53386896995.js"
 );
 
 self.addEventListener('message', (event) => {
