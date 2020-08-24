@@ -15,14 +15,14 @@ const useStyles = makeStyles((theme) => {
   return {
     root: {
       backgroundColor: "#E5E5E5",
-      height: "100%",
+      minHeight: "100%",
     },
     customApp: {
-      height: `calc(100% - ${theme.mixins.toolbar.minHeight}px)`,
+      minHeight: `calc(100% - ${theme.mixins.toolbar.minHeight}px)`,
       paddingTop: theme.mixins.toolbar.minHeight,
       // eslint-disable-next-line
       ["@media (min-width:0px) and (orientation: landscape)"]: {
-        height: `calc(100% - ${theme.mixins.toolbar["@media (min-width:0px) and (orientation: landscape)"].minHeight}px)`,
+        minHeight: `calc(100% - ${theme.mixins.toolbar["@media (min-width:0px) and (orientation: landscape)"].minHeight}px)`,
         paddingTop:
           theme.mixins.toolbar[
             "@media (min-width:0px) and (orientation: landscape)"
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => {
       },
       // eslint-disable-next-line
       ["@media (min-width:600px)"]: {
-        height: `calc(100% - ${theme.mixins.toolbar["@media (min-width:600px)"].minHeight}px)`,
+        minHeight: `calc(100% - ${theme.mixins.toolbar["@media (min-width:600px)"].minHeight}px)`,
         paddingTop: theme.mixins.toolbar["@media (min-width:600px)"].minHeight,
       },
     },
