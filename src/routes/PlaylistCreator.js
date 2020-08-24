@@ -73,6 +73,7 @@ const PlaylistCreator = () => {
   const [inputSearchValue, setInputSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [playlistSongs, setPlaylistSongs] = useState([]);
+  // const [playlistSongs, setPlaylistSongs] = useState(songData);
 
   const _renderSearchTable = () => {
     return (
@@ -133,14 +134,13 @@ const PlaylistCreator = () => {
         <TableCell>{song.album}</TableCell>
         <TableCell>{song.duration}</TableCell>
         <TableCell>
-          {/* TODO: Add tooltip and pink background (see design) */}
           {!playlistSongs.includes(song) ? (
             <IconButton
               aria-label="Añadir canción a la playlist"
               onClick={() => handleAddSong(song)}
               color="inherit"
             >
-              <AddCircle />
+              <AddCircle color="secondary" />
             </IconButton>
           ) : (
             <IconButton
@@ -148,7 +148,7 @@ const PlaylistCreator = () => {
               onClick={() => handleRemoveSong(song)}
               color="inherit"
             >
-              <RemoveCircle />
+              <RemoveCircle color="secondary" />
             </IconButton>
           )}
         </TableCell>
@@ -315,14 +315,14 @@ const PlaylistCreator = () => {
       </Grid>
 
       {/* Results of search table */}
-      <Grid item xs={10} md={10} className={classes.mb2}>
+      <Grid item xs={12} md={10} className={classes.mb2}>
         <Box width="100%" borderRadius={4} className={classes.box}>
           <Box p={2}>{_renderSearchTable()}</Box>
         </Box>
       </Grid>
 
       {/* Playlist table */}
-      <Grid item xs={10} md={10}>
+      <Grid item xs={12} md={10}>
         <Box width="100%" borderRadius={4} className={classes.box}>
           <Box p={2}>{_renderPlaylistTable()}</Box>
         </Box>
