@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import songData from "../database/songData.json";
+import songDataFromDb from "../database/songData.json";
 
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
@@ -16,6 +16,7 @@ import {
   Avatar,
   IconButton,
   Paper,
+  Hidden,
 } from "@material-ui/core";
 import MuiTableCell from "@material-ui/core/TableCell";
 
@@ -38,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#FFF",
   },
   table: {
-    minWidth: 650,
+    // TODO: remove this
+    // minWidth: 650,
   },
   tableHeadTitle: {
     borderBottom: "none",
@@ -66,6 +68,13 @@ const TableCell = withStyles({
     borderBottom: "none",
   },
 })(MuiTableCell);
+
+let songData = songDataFromDb;
+
+songData = songData.map((song) => {
+  song.votes = randomInteger(0, 40);
+  return song;
+});
 
 const PlaylistCreator = () => {
   const classes = useStyles();
@@ -101,8 +110,10 @@ const PlaylistCreator = () => {
             <TableRow>
               <MuiTableCell>Nombre</MuiTableCell>
               <MuiTableCell>Artista</MuiTableCell>
-              <MuiTableCell>Álbum</MuiTableCell>
-              <MuiTableCell>Duración</MuiTableCell>
+              <Hidden xsDown>
+                <MuiTableCell>Álbum</MuiTableCell>
+                <MuiTableCell>Duración</MuiTableCell>
+              </Hidden>
               <MuiTableCell>Agregar</MuiTableCell>
             </TableRow>
           </TableHead>
@@ -117,22 +128,26 @@ const PlaylistCreator = () => {
       <TableRow key={`result-${song.uuid}`}>
         <TableCell component="th" scope="row">
           <Grid container direction="row" alignItems="center" wrap="nowrap">
-            <Grid item>
-              <Box pr={2}>
-                <Avatar
-                  alt={`Foto de ${song.artist}`}
-                  src={song.artist.coverUrl}
-                />
-              </Box>
-            </Grid>
+            <Hidden xsDown>
+              <Grid item>
+                <Box pr={2}>
+                  <Avatar
+                    alt={`Foto de ${song.artist}`}
+                    src={song.artist.coverUrl}
+                  />
+                </Box>
+              </Grid>
+            </Hidden>
             <Grid item>
               <Typography noWrap>{song.name}</Typography>
             </Grid>
           </Grid>
         </TableCell>
         <TableCell>{song.artist.name}</TableCell>
-        <TableCell>{song.album}</TableCell>
-        <TableCell>{song.duration}</TableCell>
+        <Hidden xsDown>
+          <TableCell>{song.album}</TableCell>
+          <TableCell>{song.duration}</TableCell>
+        </Hidden>
         <TableCell>
           {!playlistSongs.includes(song) ? (
             <IconButton
@@ -203,8 +218,10 @@ const PlaylistCreator = () => {
             <TableRow>
               <MuiTableCell>Nombre</MuiTableCell>
               <MuiTableCell>Artista</MuiTableCell>
-              <MuiTableCell>Duración</MuiTableCell>
-              <MuiTableCell>Cant. Votos</MuiTableCell>
+              <Hidden xsDown>
+                <MuiTableCell>Duración</MuiTableCell>
+                <MuiTableCell>Cant. Votos</MuiTableCell>
+              </Hidden>
               <MuiTableCell>Votar</MuiTableCell>
             </TableRow>
           </TableHead>
@@ -214,51 +231,77 @@ const PlaylistCreator = () => {
     );
   };
 
-  const _renderPlaylistList = (listSongs) =>
-    listSongs.map((song) => (
+  const _renderPlaylistList = (listSongs) => {
+    listSongs.sort((songX, songY) => songY.votes - songX.votes);
+
+    return listSongs.map((song) => (
       <TableRow key={`result-${song.uuid}`}>
         <TableCell component="th" scope="row">
           <Grid container direction="row" alignItems="center" wrap="nowrap">
-            <Grid item>
-              <Box pr={2}>
-                <Avatar
-                  alt={`Foto de ${song.artist}`}
-                  src={song.artist.coverUrl}
-                />
-              </Box>
-            </Grid>
+            <Hidden xsDown>
+              <Grid item>
+                <Box pr={2}>
+                  <Avatar
+                    alt={`Foto de ${song.artist}`}
+                    src={song.artist.coverUrl}
+                  />
+                </Box>
+              </Grid>
+            </Hidden>
+
             <Grid item>
               <Typography noWrap>{song.name}</Typography>
             </Grid>
           </Grid>
         </TableCell>
         <TableCell>{song.artist.name}</TableCell>
-        <TableCell>{song.duration}</TableCell>
-        <TableCell>{randomInteger(0, 40)}</TableCell>
+        <Hidden xsDown>
+          <TableCell>{song.duration}</TableCell>
+          <TableCell>{song.votes}</TableCell>
+        </Hidden>
         <TableCell>
           <Grid container>
             <Grid item>
               <IconButton
-                aria-label="Votar -1"
-                // onClick={TODO: Add onclick}
-                color="inherit"
-              >
-                <ThumbUp />
-              </IconButton>
-            </Grid>
-            <Grid item>
-              <IconButton
                 aria-label="Votar +1"
-                // onClick={TODO: Add onclick}
+                onClick={() => handleVoteSong(song, 1)}
                 color="inherit"
               >
-                <ThumbDown />
+                <ThumbUp
+                  color={
+                    !song.yourVote
+                      ? "inherit"
+                      : song.yourVote === 1
+                      ? "primary"
+                      : "inherit"
+                  }
+                />
               </IconButton>
             </Grid>
+            <Hidden xsDown>
+              <Grid item>
+                <IconButton
+                  aria-label="Votar -1"
+                  onClick={() => handleVoteSong(song, -1)}
+                  color="inherit"
+                >
+                  <ThumbDown
+                    color={
+                      !song.yourVote
+                        ? "inherit"
+                        : song.yourVote === -1
+                        ? "secondary"
+                        : "inherit"
+                    }
+                  />
+                </IconButton>
+              </Grid>
+            </Hidden>
           </Grid>
         </TableCell>
       </TableRow>
     ));
+  };
 
   const handleInputSearch = (e) => {
     setInputSearchValue(e.target.value);
@@ -293,10 +336,32 @@ const PlaylistCreator = () => {
     );
   };
 
+  const handleVoteSong = (song, vote) => {
+    const newPlaylist = [...playlistSongs];
+    const index = newPlaylist.indexOf(song);
+
+    // If user din't voted
+    if (!song.yourVote) {
+      newPlaylist[index].yourVote = vote;
+      newPlaylist[index].votes += vote;
+    } else if (song.yourVote === vote) {
+      // if you voted twice with the same vote -> cancel the vote
+      newPlaylist[index].yourVote = 0;
+      newPlaylist[index].votes -= vote;
+    } else {
+      // you voted with different vote
+      newPlaylist[index].yourVote = vote;
+
+      vote *= 2;
+      newPlaylist[index].votes += vote;
+    }
+    setPlaylistSongs(newPlaylist);
+  };
+
   return (
     <Grid container justify="center" className={classes.app}>
       {/* Search input */}
-      <Grid item xs={10} md={5}>
+      <Grid item xs={10} sm={5}>
         <TextField
           className={classes.textField}
           id="input-song"
@@ -315,14 +380,14 @@ const PlaylistCreator = () => {
       </Grid>
 
       {/* Results of search table */}
-      <Grid item xs={12} md={10} className={classes.mb2}>
+      <Grid item xs={12} sm={10} className={classes.mb2}>
         <Box width="100%" borderRadius={4} className={classes.box}>
           <Box p={2}>{_renderSearchTable()}</Box>
         </Box>
       </Grid>
 
       {/* Playlist table */}
-      <Grid item xs={12} md={10}>
+      <Grid item xs={12} sm={10}>
         <Box width="100%" borderRadius={4} className={classes.box}>
           <Box p={2}>{_renderPlaylistTable()}</Box>
         </Box>
